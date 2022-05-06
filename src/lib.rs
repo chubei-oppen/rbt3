@@ -96,7 +96,7 @@ impl Rbt {
     }
 }
 
-impl Mul for &Rbt {
+impl Mul<&Rbt> for &Rbt {
     type Output = Rbt;
 
     fn mul(self, rhs: &Rbt) -> Rbt {
@@ -104,6 +104,14 @@ impl Mul for &Rbt {
             translation: self.rotation * rhs.translation + self.translation,
             rotation: (self.rotation * rhs.rotation).normalize(),
         }
+    }
+}
+
+impl Mul<Rbt> for &Rbt {
+    type Output = Rbt;
+
+    fn mul(self, rhs: Rbt) -> Rbt {
+        self * &rhs
     }
 }
 
@@ -123,7 +131,7 @@ impl Mul<&Rbt> for Rbt {
     }
 }
 
-impl Mul for Rbt {
+impl Mul<Rbt> for Rbt {
     type Output = Rbt;
 
     fn mul(self, rhs: Rbt) -> Rbt {
